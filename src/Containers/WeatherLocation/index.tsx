@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
 import { isEmpty, get } from "lodash";
 
@@ -10,16 +10,66 @@ import HourlyWeatherTemperature from "Components/HourlyWeatherTemperature";
 import AutocompleteSearchLocation from "../AutoCompleteSearchLocation";
 import { CurrentWeatherType, HourlyWeatherType, SearchLocationValueType } from "./types";
 
+const LOCAL_STORAGE_KEY = {
+  CURRENT_WEATHER: "CURRENT_WEATHER",
+  HOURLY_WEATHER: "HOURLY_WEATHER",
+  SELECTED_PLACE: "SELECTED_PLACE",
+};
+
 const SearchContainer = styled.div`
   width: 100%;
   background-color: ${COLORS.BLACK};
   padding: 8px;
 `;
 
+const saveDataToLocalStorage = (
+  currentWeatherLocation: CurrentWeatherType,
+  hourlyWeatherLocation: HourlyWeatherType,
+  place: string,
+) => {
+  const computedCurrentWeatherLocation = JSON.stringify(currentWeatherLocation);
+  const computedHourlyWeatherLocation = JSON.stringify(hourlyWeatherLocation);
+
+  localStorage.setItem(LOCAL_STORAGE_KEY.CURRENT_WEATHER, computedCurrentWeatherLocation);
+  localStorage.setItem(LOCAL_STORAGE_KEY.HOURLY_WEATHER, computedHourlyWeatherLocation);
+  localStorage.setItem(LOCAL_STORAGE_KEY.SELECTED_PLACE, place);
+};
+
+const getDataFromLocalStorage = () => {
+  const rememberedCurrentWeatherLocation = localStorage.getItem(LOCAL_STORAGE_KEY.CURRENT_WEATHER);
+  const rememberedHourlyWeatherLocation = localStorage.getItem(LOCAL_STORAGE_KEY.HOURLY_WEATHER);
+  const rememberedSelectedPlace = localStorage.getItem(LOCAL_STORAGE_KEY.SELECTED_PLACE);
+
+  const convertedRememberedCurrentWeatherLocation =
+    rememberedCurrentWeatherLocation && JSON.parse(rememberedCurrentWeatherLocation);
+  const convertedRememberedHourlyWeatherLocation =
+    rememberedHourlyWeatherLocation && JSON.parse(rememberedHourlyWeatherLocation);
+
+  return {
+    rememberedCurrentWeatherLocation: convertedRememberedCurrentWeatherLocation,
+    rememberedHourlyWeatherLocation: convertedRememberedHourlyWeatherLocation,
+    rememberedSelectedPlace: rememberedSelectedPlace,
+  };
+};
+
 const WeatherLocation: React.FC = () => {
   const [currentWeather, setCurrentWeather] = useState<CurrentWeatherType>();
   const [hourlyWeather, setHourlyWeather] = useState<HourlyWeatherType[]>([]);
   const [selectedPlace, setSelectedPlace] = useState("");
+
+  useEffect(() => {
+    const {
+      rememberedCurrentWeatherLocation,
+      rememberedHourlyWeatherLocation,
+      rememberedSelectedPlace,
+    } = getDataFromLocalStorage();
+
+    if (rememberedCurrentWeatherLocation && rememberedHourlyWeatherLocation && rememberedSelectedPlace) {
+      setCurrentWeather(rememberedCurrentWeatherLocation);
+      setHourlyWeather(rememberedHourlyWeatherLocation);
+      setSelectedPlace(rememberedSelectedPlace)
+    }
+  }, []);
 
   const handleChange = async (e: ChangeEvent<{}>, value: SearchLocationValueType) => {
     if (!isEmpty(value)) {
@@ -33,6 +83,8 @@ const WeatherLocation: React.FC = () => {
         currentWeather: currentWeatherLocation,
         hourlyWeather: hourlyWeatherLocation,
       } = await getWeatherLocationFromLatLng(latLng);
+
+      saveDataToLocalStorage(currentWeatherLocation, hourlyWeatherLocation, place_name);
       setCurrentWeather(currentWeatherLocation as CurrentWeatherType);
       setHourlyWeather(hourlyWeatherLocation);
     }
