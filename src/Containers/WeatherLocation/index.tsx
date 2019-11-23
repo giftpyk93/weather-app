@@ -2,11 +2,11 @@ import React, { useState, ChangeEvent } from "react";
 import styled from "styled-components";
 import { isEmpty, get } from "lodash";
 
-import { getWeatherLocationFromLatLng } from "../../Services/weather";
-import COLORS from "../../Constants/Colors";
-import CurrentWeatherTemperature from "../../Components/CurrentWeatherTemperature";
-import CurrentWeatherDetail from "../../Components/CurrentWeatherDetail";
-import HourlyWeatherTemperature from "../../Components/HourlyWeatherTemperature";
+import { getWeatherLocationFromLatLng } from "Services/weather";
+import COLORS from "Constants/Colors";
+import CurrentWeatherTemperature from "Components/CurrentWeatherTemperature";
+import CurrentWeatherDetail from "Components/CurrentWeatherDetail";
+import HourlyWeatherTemperature from "Components/HourlyWeatherTemperature";
 import AutocompleteSearchLocation from "../AutoCompleteSearchLocation";
 import { CurrentWeatherType, HourlyWeatherType, SearchLocationValueType } from "./types";
 

@@ -3,7 +3,7 @@ import moment from "moment";
 import Grid from "@material-ui/core/Grid";
 import styled from "styled-components";
 
-import { DATE_FORMAT } from "../../Constants/DateTimeFormat";
+import { DATE_FORMAT } from "Constants/DateTimeFormat";
 import { WeatherIcon } from "../Icon";
 
 type CurrentWeatherPropsType = {

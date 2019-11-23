@@ -1,6 +1,6 @@
 import React from "react";
 import { create } from "react-test-renderer";
-import HourlyWeatherTemperature from "../Components/HourlyWeatherTemperature";
+import HourlyWeatherTemperature from "Components/HourlyWeatherTemperature";
 
 const mockHourlyWeather = [
   {

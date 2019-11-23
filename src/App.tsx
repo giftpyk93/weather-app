@@ -2,7 +2,7 @@ import React from "react";
 import Helmet from "react-helmet";
 import jsLogger from 'js-logger'
 
-import AppRouter from "./Routers";
+import AppRouter from "Routers";
 
 jsLogger.useDefaults();
 

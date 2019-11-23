@@ -5,7 +5,7 @@ import "jest-styled-components";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-import { WeatherIcon } from "../Components/Icon";
+import { WeatherIcon } from "Components/Icon";
 
 describe("Icon component", () => {
   test("should render icon size correctly when not pass prop size", () => {

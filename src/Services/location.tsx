@@ -1,7 +1,7 @@
 import axios from "axios";
 import Logger from "js-logger";
 
-import config from "../config";
+import config from "config";
 
 const getGeolocation = async (place: string) => {
   try {

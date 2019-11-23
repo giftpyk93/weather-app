@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
-import config from "../../config";
+import config from "config";
 
 type IconWeatherPropsType = {
   iconCode: string;

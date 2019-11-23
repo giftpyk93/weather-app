@@ -6,8 +6,8 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { debounce } from "lodash";
 
-import { getGeolocation } from "../../Services/location";
-import COLORS from "../../Constants/Colors";
+import { getGeolocation } from "Services/location";
+import COLORS from "Constants/Colors";
 import { SearchLocationValueType } from '../WeatherLocation/types'
 
 type OptionType = {

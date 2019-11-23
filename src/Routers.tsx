@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, BrowserRouter as Router } from "react-router-dom";
-import WeatherLocation from './Containers/WeatherLocation'
+import WeatherLocation from 'Containers/WeatherLocation'
 
 const AppRouter: React.FC = () => {
   return (

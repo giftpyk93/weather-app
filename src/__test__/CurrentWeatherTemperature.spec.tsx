@@ -1,6 +1,6 @@
 import React from "react";
 import { create } from "react-test-renderer";
-import CurrentWeatherTemperature from "../Components/CurrentWeatherTemperature";
+import CurrentWeatherTemperature from "Components/CurrentWeatherTemperature";
 
 const mockCurrentWeatherTemperatureProp = {
   currentTemp: 27.48,

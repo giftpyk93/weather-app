@@ -1,6 +1,6 @@
 import React from "react";
 import { create } from "react-test-renderer";
-import CurrentWeatherDetail from "../Components/CurrentWeatherDetail";
+import CurrentWeatherDetail from "Components/CurrentWeatherDetail";
 
 const mockWeatherDetail = [
   {

@@ -2,9 +2,9 @@ import React, { FC } from "react";
 import moment from "moment";
 import styled from "styled-components";
 
+import { TIME_FORMAT } from "Constants/DateTimeFormat";
+import { HourlyWeatherType } from "Containers/WeatherLocation/types";
 import { WeatherIcon } from "../Icon";
-import { TIME_FORMAT } from "../../Constants/DateTimeFormat";
-import { HourlyWeatherType } from "../../Containers/WeatherLocation/types";
 
 type HourlyWeatherPropsType = {
   hourlyWeather: HourlyWeatherType[];
