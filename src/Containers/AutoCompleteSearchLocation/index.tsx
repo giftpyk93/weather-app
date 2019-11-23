@@ -7,6 +7,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { debounce } from "lodash";
 
 import { getGeolocation } from "../../Services/location";
+import { SearchLocationValueType } from '../WeatherLocation'
 import COLORS from "../../Constants/Colors";
 
 type OptionType = {
@@ -14,14 +15,16 @@ type OptionType = {
 };
 
 type AutoCompleteSearchLocationPropsType = {
-  onChange: ((event: React.ChangeEvent<{}>, value: any) => void)
-}
+  onChange: (event: React.ChangeEvent<{}>, value: SearchLocationValueType) => void;
+};
 
 const SearchWrapper = styled.div`
   display: flex;
   background-color: ${COLORS.WHITE};
   border-radius: 4px;
 `;
+
+const getOptionLabel = (option: OptionType) => option.place_name;
 
 const AutoCompleteSearchLocation: FC<AutoCompleteSearchLocationPropsType> = props => {
   const { onChange } = props;
@@ -36,12 +39,9 @@ const AutoCompleteSearchLocation: FC<AutoCompleteSearchLocationPropsType> = prop
     }
   }, 500);
 
-  const getOptionLabel = (option: OptionType) => option.place_name;
-
   return (
     <Autocomplete
       getOptionLabel={getOptionLabel}
-      noOptionsText="no option"
       options={autocompleteOptions}
       onChange={onChange}
       renderInput={params => (
@@ -49,7 +49,7 @@ const AutoCompleteSearchLocation: FC<AutoCompleteSearchLocationPropsType> = prop
           <InputBase
             {...params}
             className="w-100 pl-2"
-            placeholder="Search"
+            placeholder="Search location"
             onChange={e => handleSearch(e.target.value)}
           />
           <IconButton aria-label="search">

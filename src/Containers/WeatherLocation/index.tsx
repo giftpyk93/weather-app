@@ -8,7 +8,7 @@ import CurrentWeatherTemperature from "../../Components/CurrentWeatherTemperatur
 import CurrentWeatherDetail from "../../Components/CurrentWeatherDetail";
 import AutocompleteSearchLocation from "../AutoCompleteSearchLocation";
 
-type SearchLocationValueType = {
+export type SearchLocationValueType = {
   place_name: string;
   geometry: {
     coordinates: number[];
