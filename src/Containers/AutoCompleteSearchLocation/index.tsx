@@ -6,19 +6,25 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { debounce } from "lodash";
 
-import { getGeolocation } from '../../Services/location'
-import COLORS from '../../Constants/Colors'
+import { getGeolocation } from "../../Services/location";
+import COLORS from "../../Constants/Colors";
 
 type OptionType = {
   place_name: string;
 };
 
+type AutoCompleteSearchLocationPropsType = {
+  onChange: ((event: React.ChangeEvent<{}>, value: any) => void)
+}
+
 const SearchWrapper = styled.div`
   display: flex;
   background-color: ${COLORS.WHITE};
+  border-radius: 4px;
 `;
 
-const AutoCompleteSearchLocation: FC = () => {
+const AutoCompleteSearchLocation: FC<AutoCompleteSearchLocationPropsType> = props => {
+  const { onChange } = props;
   const [autocompleteOptions, setAutocompleteOptions] = useState([]);
 
   const handleSearch = debounce(async (searchKeyword: string) => {
@@ -30,17 +36,22 @@ const AutoCompleteSearchLocation: FC = () => {
     }
   }, 500);
 
-  const getOptionLabel = (option: OptionType) => option.place_name
+  const getOptionLabel = (option: OptionType) => option.place_name;
 
   return (
     <Autocomplete
       getOptionLabel={getOptionLabel}
       noOptionsText="no option"
       options={autocompleteOptions}
-      onChange={() => {}}
+      onChange={onChange}
       renderInput={params => (
         <SearchWrapper>
-          <InputBase {...params} className="w-100" placeholder="Search" onChange={e => handleSearch(e.target.value)} />
+          <InputBase
+            {...params}
+            className="w-100 pl-2"
+            placeholder="Search"
+            onChange={e => handleSearch(e.target.value)}
+          />
           <IconButton aria-label="search">
             <SearchIcon />
           </IconButton>
