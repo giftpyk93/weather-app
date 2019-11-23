@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { isEmpty, get } from "lodash";
 
 import { getWeatherLocationFromLatLng } from "../../Services/weather";
-import CurrentWeather from "../../Components/CurrentWeather";
+import COLORS from '../../Constants/Colors'
+import CurrentWeatherTemperature from "../../Components/CurrentWeatherTemperature";
+import CurrentWeatherDetail from "../../Components/CurrentWeatherDetail";
 import AutocompleteSearchLocation from "../AutoCompleteSearchLocation";
 
 type SearchLocationValueType = {
@@ -17,6 +19,8 @@ type CurrentWeatherMainType = {
   temp: number;
   temp_max: number;
   temp_min: number;
+  humidity: number;
+  pressure: number;
 };
 
 type CurrentWeatherWeatherType = {
@@ -24,14 +28,19 @@ type CurrentWeatherWeatherType = {
   main: string;
 };
 
+type CurrentWeatherWindType = {
+  speed: number;
+};
+
 type CurrentWeatherType = {
   main: CurrentWeatherMainType;
   weather: CurrentWeatherWeatherType[];
+  wind: CurrentWeatherWindType;
 };
 
 const SearchContainer = styled.div`
   width: 100%;
-  background-color: #000;
+  background-color: ${COLORS.BLACK};
   padding: 8px;
 `;
 
@@ -56,7 +65,25 @@ const WeatherLocation: React.FC = () => {
   const iconCode = get(currentWeather, "weather[0].icon");
   const maxTemp = get(currentWeather, "main.temp_max");
   const minTemp = get(currentWeather, "main.temp_min");
-  const weatherStatus = get(currentWeather, "weather[0].main")
+  const weatherStatus = get(currentWeather, "weather[0].main");
+
+  const humidity = get(currentWeather, "main.humidity");
+  const wind = get(currentWeather, "wind.speed");
+  const pressure = get(currentWeather, "main.pressure");
+  const weatherDetails = [
+    {
+      label: "Humidity",
+      value: `${humidity}%`,
+    },
+    {
+      label: "Wind",
+      value: `${wind} meter/sec`,
+    },
+    {
+      label: "Pressure",
+      value: `${pressure} hPa`,
+    },
+  ];
 
   return (
     <>
@@ -65,7 +92,7 @@ const WeatherLocation: React.FC = () => {
       </SearchContainer>
       {!isEmpty(currentWeather) && (
         <>
-          <CurrentWeather
+          <CurrentWeatherTemperature
             currentTemp={currentTemp}
             iconCode={iconCode}
             place={selectedPlace}
@@ -73,6 +100,7 @@ const WeatherLocation: React.FC = () => {
             minTemp={minTemp}
             weatherStatus={weatherStatus}
           />
+          <CurrentWeatherDetail weatherDetails={weatherDetails} />
         </>
       )}
     </>
