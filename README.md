@@ -1,5 +1,17 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Getting started
+
+1. Clone project
+
+2. Run this command to install all the dependencies
+
+   ```bash
+   yarn install
+   ```
+
+3. Setup environment variable with [Mapbox token](https://www.mapbox.com) and [Open weather API key](https://openweathermap.org/api)
+
 ## Available Scripts
 
 In the project directory, you can run:
