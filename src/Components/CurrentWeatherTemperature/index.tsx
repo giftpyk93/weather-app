@@ -43,7 +43,7 @@ const CurrentWeather: FC<CurrentWeatherPropsType> = props => {
       </Grid>
       <Grid item container xs={12} direction="column" alignItems="center">
         <Grid item>
-          <WeatherIcon iconCode={iconCode} size='big' />
+          <WeatherIcon iconCode={iconCode} size="big" />
         </Grid>
         <Grid item>
           <CurrentTempText>{currentTemp}°C</CurrentTempText>

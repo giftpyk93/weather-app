@@ -67,7 +67,7 @@ const WeatherLocation: React.FC = () => {
     if (rememberedCurrentWeatherLocation && rememberedHourlyWeatherLocation && rememberedSelectedPlace) {
       setCurrentWeather(rememberedCurrentWeatherLocation);
       setHourlyWeather(rememberedHourlyWeatherLocation);
-      setSelectedPlace(rememberedSelectedPlace)
+      setSelectedPlace(rememberedSelectedPlace);
     }
   }, []);
 

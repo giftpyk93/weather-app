@@ -5,7 +5,7 @@ import config from "config";
 
 type IconWeatherPropsType = {
   iconCode: string;
-  size?: 'small' | 'big';
+  size?: "small" | "big";
 };
 
 const ICON_SIZE = {
@@ -13,9 +13,9 @@ const ICON_SIZE = {
   big: "60px",
 };
 
-const SMALL = 'small'
+const SMALL = "small";
 
-const IconWrapper = styled.img<Pick<IconWeatherPropsType, 'size'>>`
+const IconWrapper = styled.img<Pick<IconWeatherPropsType, "size">>`
   width: ${({ size }) => ICON_SIZE[size || SMALL]};
   height: ${({ size }) => ICON_SIZE[size || SMALL]};
   text-align: center;

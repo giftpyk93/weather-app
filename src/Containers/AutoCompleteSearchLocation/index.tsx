@@ -8,7 +8,7 @@ import { debounce } from "lodash";
 
 import { getGeolocation } from "Services/location";
 import COLORS from "Constants/Colors";
-import { SearchLocationValueType } from '../WeatherLocation/types'
+import { SearchLocationValueType } from "../WeatherLocation/types";
 
 type OptionType = {
   place_name: string;
