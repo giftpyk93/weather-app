@@ -16,6 +16,7 @@
     "@types/react-router-dom": "5.1.2",
     "@types/styled-components": "4.4.0",
     "axios": "0.19.0",
+    "dotenv": "8.2.0",
     "js-logger": "1.6.0",
     "lodash": "4.17.15",
     "react": "16.12.0",
