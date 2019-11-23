@@ -3,40 +3,12 @@ import styled from "styled-components";
 import { isEmpty, get } from "lodash";
 
 import { getWeatherLocationFromLatLng } from "../../Services/weather";
-import COLORS from '../../Constants/Colors'
+import COLORS from "../../Constants/Colors";
 import CurrentWeatherTemperature from "../../Components/CurrentWeatherTemperature";
 import CurrentWeatherDetail from "../../Components/CurrentWeatherDetail";
+import HourlyWeatherTemperature from "../../Components/HourlyWeatherTemperature";
 import AutocompleteSearchLocation from "../AutoCompleteSearchLocation";
-
-export type SearchLocationValueType = {
-  place_name: string;
-  geometry: {
-    coordinates: number[];
-  };
-};
-
-type CurrentWeatherMainType = {
-  temp: number;
-  temp_max: number;
-  temp_min: number;
-  humidity: number;
-  pressure: number;
-};
-
-type CurrentWeatherWeatherType = {
-  icon: string;
-  main: string;
-};
-
-type CurrentWeatherWindType = {
-  speed: number;
-};
-
-type CurrentWeatherType = {
-  main: CurrentWeatherMainType;
-  weather: CurrentWeatherWeatherType[];
-  wind: CurrentWeatherWindType;
-};
+import { CurrentWeatherType, HourlyWeatherType, SearchLocationValueType } from "./types";
 
 const SearchContainer = styled.div`
   width: 100%;
@@ -46,6 +18,7 @@ const SearchContainer = styled.div`
 
 const WeatherLocation: React.FC = () => {
   const [currentWeather, setCurrentWeather] = useState<CurrentWeatherType>();
+  const [hourlyWeather, setHourlyWeather] = useState<HourlyWeatherType[]>([]);
   const [selectedPlace, setSelectedPlace] = useState("");
 
   const handleChange = async (e: ChangeEvent<{}>, value: SearchLocationValueType) => {
@@ -56,8 +29,12 @@ const WeatherLocation: React.FC = () => {
         lat: geometry.coordinates[1],
         lng: geometry.coordinates[0],
       };
-      const weatherLocation = await getWeatherLocationFromLatLng(latLng);
-      setCurrentWeather(weatherLocation.data as CurrentWeatherType);
+      const {
+        currentWeather: currentWeatherLocation,
+        hourlyWeather: hourlyWeatherLocation,
+      } = await getWeatherLocationFromLatLng(latLng);
+      setCurrentWeather(currentWeatherLocation as CurrentWeatherType);
+      setHourlyWeather(hourlyWeatherLocation);
     }
   };
 
@@ -100,6 +77,9 @@ const WeatherLocation: React.FC = () => {
             minTemp={minTemp}
             weatherStatus={weatherStatus}
           />
+          <hr />
+          <HourlyWeatherTemperature hourlyWeather={hourlyWeather} />
+          <hr />
           <CurrentWeatherDetail weatherDetails={weatherDetails} />
         </>
       )}
