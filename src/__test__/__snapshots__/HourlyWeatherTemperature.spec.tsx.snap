@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HourlyWeatherTemperature component Matches the snapshot 1`] = `
+<div
+  className="px-3"
+>
+  <h6>
+    3 HOURS FORCAST FOR 5 DAYS
+  </h6>
+  <div
+    className="sc-bwzfXH gAFJHW"
+  >
+    <div
+      className="d-flex flex-column align-items-center mx-2"
+    >
+      <p>
+        Invalid date
+      </p>
+      <img
+        alt="weather-icon"
+        className="sc-bdVaJa cNBob"
+        src="http://openweathermap.org/img/wn/d10@2x.png"
+      />
+      <p>
+        25.8°C
+      </p>
+    </div>
+  </div>
+</div>
+`;
