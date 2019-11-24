@@ -1,8 +1,8 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
-import { isEmpty, get } from "lodash";
+import { isEmpty, get, take } from "lodash";
 
-import { getWeatherLocationFromLatLng } from "Services/weather";
+import { getCurrenWeather, getHourlyWeather } from "Services/weather";
 import COLORS from "Constants/Colors";
 import CurrentWeatherTemperature from "Components/CurrentWeatherTemperature";
 import CurrentWeatherDetail from "Components/CurrentWeatherDetail";
@@ -16,6 +16,8 @@ const LOCAL_STORAGE_KEY = {
   SELECTED_PLACE: "SELECTED_PLACE",
 };
 
+const HOURLY_WEATHER_LENGHT = 8
+
 const SearchContainer = styled.div`
   width: 100%;
   background-color: ${COLORS.BLACK};
@@ -24,7 +26,7 @@ const SearchContainer = styled.div`
 
 const saveDataToLocalStorage = (
   currentWeatherLocation: CurrentWeatherType,
-  hourlyWeatherLocation: HourlyWeatherType,
+  hourlyWeatherLocation: HourlyWeatherType[],
   place: string,
 ) => {
   const computedCurrentWeatherLocation = JSON.stringify(currentWeatherLocation);
@@ -79,14 +81,17 @@ const WeatherLocation: React.FC = () => {
         lat: geometry.coordinates[1],
         lng: geometry.coordinates[0],
       };
-      const {
-        currentWeather: currentWeatherLocation,
-        hourlyWeather: hourlyWeatherLocation,
-      } = await getWeatherLocationFromLatLng(latLng);
 
-      saveDataToLocalStorage(currentWeatherLocation, hourlyWeatherLocation, place_name);
+      const [currentWeatherLocation, hourlyWeatherLocation] = await Promise.all([
+        getCurrenWeather(latLng),
+        getHourlyWeather(latLng),
+      ]);
+
+      const hourlyWeatherLocationWithin24Hr = take<HourlyWeatherType>(hourlyWeatherLocation, HOURLY_WEATHER_LENGHT);
+
+      saveDataToLocalStorage(currentWeatherLocation, hourlyWeatherLocationWithin24Hr, place_name);
       setCurrentWeather(currentWeatherLocation as CurrentWeatherType);
-      setHourlyWeather(hourlyWeatherLocation);
+      setHourlyWeather(hourlyWeatherLocationWithin24Hr);
     }
   };
 
