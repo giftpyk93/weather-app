@@ -30,8 +30,7 @@ const AutoCompleteSearchLocation: FC<AutoCompleteSearchLocationPropsType> = prop
   const { onChange } = props;
   const [autocompleteOptions, setAutocompleteOptions] = useState([]);
 
-  const handleSearch = debounce(async (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    const searchKeyword = event.target.value;
+  const getGeolocationFormSearchKeyword = debounce(async (searchKeyword: string) => {
     const geolocationData = searchKeyword && (await getGeolocation(searchKeyword));
     if (geolocationData) {
       setAutocompleteOptions(geolocationData.features);
@@ -39,6 +38,11 @@ const AutoCompleteSearchLocation: FC<AutoCompleteSearchLocationPropsType> = prop
       setAutocompleteOptions([]);
     }
   }, 500);
+
+  const handleSearch = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const searchKeyword = event.target.value;
+    getGeolocationFormSearchKeyword(searchKeyword);
+  };
 
   return (
     <Autocomplete
