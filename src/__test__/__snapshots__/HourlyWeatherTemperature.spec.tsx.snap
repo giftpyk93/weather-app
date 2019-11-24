@@ -2,28 +2,36 @@
 
 exports[`HourlyWeatherTemperature component Matches the snapshot 1`] = `
 <div
-  className="px-3"
+  className="MuiGrid-root px-3 MuiGrid-container"
 >
-  <h6>
-    3 HOURS FORCAST FOR 5 DAYS
-  </h6>
   <div
-    className="sc-bwzfXH gAFJHW"
+    className="MuiGrid-root MuiGrid-item"
+  >
+    <h6>
+      24 HOURS FORCAST
+    </h6>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-item"
   >
     <div
-      className="d-flex flex-column align-items-center mx-2"
+      className="sc-bwzfXH jSQtbV"
     >
-      <p>
-        Invalid date
-      </p>
-      <img
-        alt="weather-icon"
-        className="sc-bdVaJa cNBob"
-        src="http://openweathermap.org/img/wn/d10@2x.png"
-      />
-      <p>
-        25.8°C
-      </p>
+      <div
+        className="d-flex flex-column align-items-center mx-2"
+      >
+        <p>
+          Invalid date
+        </p>
+        <img
+          alt="weather-icon"
+          className="sc-bdVaJa cNBob"
+          src="http://openweathermap.org/img/wn/d10@2x.png"
+        />
+        <p>
+          25.8°C
+        </p>
+      </div>
     </div>
   </div>
 </div>

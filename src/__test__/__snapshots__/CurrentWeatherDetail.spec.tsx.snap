@@ -2,7 +2,7 @@
 
 exports[`CurrentWeatherDetail component Matches the snapshot 1`] = `
 <div
-  className="MuiGrid-root d-flex flex-column p-3 MuiGrid-container"
+  className="MuiGrid-root p-3 MuiGrid-container MuiGrid-direction-xs-column"
 >
   <div
     className="MuiGrid-root MuiGrid-item"
@@ -12,7 +12,7 @@ exports[`CurrentWeatherDetail component Matches the snapshot 1`] = `
     </h6>
   </div>
   <div
-    className="MuiGrid-root d-flex flex-row MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12"
   >
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
@@ -32,7 +32,7 @@ exports[`CurrentWeatherDetail component Matches the snapshot 1`] = `
     </div>
   </div>
   <div
-    className="MuiGrid-root d-flex flex-row MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12"
   >
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
@@ -52,7 +52,7 @@ exports[`CurrentWeatherDetail component Matches the snapshot 1`] = `
     </div>
   </div>
   <div
-    className="MuiGrid-root d-flex flex-row MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12"
   >
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
