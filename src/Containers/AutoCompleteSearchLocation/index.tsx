@@ -58,6 +58,7 @@ const AutoCompleteSearchLocation: FC<AutoCompleteSearchLocationPropsType> = prop
 
   return (
     <Autocomplete
+      autoComplete
       freeSolo
       getOptionLabel={getOptionLabel}
       options={autocompleteOptions}

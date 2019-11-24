@@ -1,14 +1,14 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 
-import { getCurrenWeather, getHourlyWeather } from "Services/weather";
+import { getCurrentWeather, getHourlyWeather } from "Services/weather";
 import config from "config";
 
 const lat = 13;
 const lng = 5;
 
 describe("Weather Service", () => {
-  describe("getCurrenWeather", () => {
+  describe("getCurrentWeather", () => {
     test("should get current weather data correctly", async () => {
       const getSpy = jest.spyOn(axios, "get");
       const mockUrl = `${config.OPEN_WEATHER_BASE_API}/weather?lat=${lat}&lon=${lng}&units=metric&appid=${config.OPEN_WEATHER_API_KEY}`;
@@ -17,7 +17,7 @@ describe("Weather Service", () => {
 
       axiosMockAdapter.onGet(mockUrl).reply(200, mockResp);
 
-      const currenWeather = await getCurrenWeather({ lat, lng });
+      const currenWeather = await getCurrentWeather({ lat, lng });
       expect(getSpy).toBeCalled();
 
       expect(currenWeather).toEqual(mockResp);

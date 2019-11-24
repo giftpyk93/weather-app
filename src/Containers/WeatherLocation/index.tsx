@@ -2,7 +2,7 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
 import { isEmpty, get, take } from "lodash";
 
-import { getCurrenWeather, getHourlyWeather } from "Services/weather";
+import { getCurrentWeather, getHourlyWeather } from "Services/weather";
 import COLORS from "Constants/Colors";
 import CurrentWeatherTemperature from "Components/CurrentWeatherTemperature";
 import CurrentWeatherDetail from "Components/CurrentWeatherDetail";
@@ -16,7 +16,7 @@ const LOCAL_STORAGE_KEY = {
   SELECTED_PLACE: "SELECTED_PLACE",
 };
 
-const HOURLY_WEATHER_LENGHT = 8
+const HOURLY_WEATHER_LENGTH = 8;
 
 const SearchContainer = styled.div`
   width: 100%;
@@ -76,22 +76,26 @@ const WeatherLocation: React.FC = () => {
   const handleChange = async (e: ChangeEvent<{}>, value: SearchLocationValueType) => {
     if (!isEmpty(value)) {
       const { place_name, geometry } = value;
-      setSelectedPlace(place_name);
-      const latLng = {
-        lat: geometry.coordinates[1],
-        lng: geometry.coordinates[0],
-      };
+      if (value.geometry) {
+        setSelectedPlace(place_name);
+        const latLng = {
+          lat: geometry.coordinates[1],
+          lng: geometry.coordinates[0],
+        };
 
-      const [currentWeatherLocation, hourlyWeatherLocation] = await Promise.all([
-        getCurrenWeather(latLng),
-        getHourlyWeather(latLng),
-      ]);
+        const [currentWeatherLocation, hourlyWeatherLocation] = await Promise.all<CurrentWeatherType, HourlyWeatherType[]>([
+          getCurrentWeather(latLng),
+          getHourlyWeather(latLng),
+        ]);
 
-      const hourlyWeatherLocationWithin24Hr = take<HourlyWeatherType>(hourlyWeatherLocation, HOURLY_WEATHER_LENGHT);
+        const hourlyWeatherLocationWithin24Hr = take(hourlyWeatherLocation, HOURLY_WEATHER_LENGTH);
 
-      saveDataToLocalStorage(currentWeatherLocation, hourlyWeatherLocationWithin24Hr, place_name);
-      setCurrentWeather(currentWeatherLocation as CurrentWeatherType);
-      setHourlyWeather(hourlyWeatherLocationWithin24Hr);
+        saveDataToLocalStorage(currentWeatherLocation, hourlyWeatherLocationWithin24Hr, place_name);
+        setCurrentWeather(currentWeatherLocation);
+        setHourlyWeather(hourlyWeatherLocationWithin24Hr);
+      } else {
+        alert(`Sorry, no results for '${value}'`);
+      }
     }
   };
 
