@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, ChangeEvent } from "react";
 import styled from "styled-components";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import IconButton from "@material-ui/core/IconButton";
@@ -15,7 +15,7 @@ type OptionType = {
 };
 
 type AutoCompleteSearchLocationPropsType = {
-  onChange: (event: React.ChangeEvent<{}>, value: SearchLocationValueType) => void;
+  onChange: (event: ChangeEvent<{}>, value: SearchLocationValueType) => void;
 };
 
 const SearchWrapper = styled.div`
@@ -30,7 +30,8 @@ const AutoCompleteSearchLocation: FC<AutoCompleteSearchLocationPropsType> = prop
   const { onChange } = props;
   const [autocompleteOptions, setAutocompleteOptions] = useState([]);
 
-  const handleSearch = debounce(async (searchKeyword: string) => {
+  const handleSearch = debounce(async (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const searchKeyword = event.target.value;
     const geolocationData = searchKeyword && (await getGeolocation(searchKeyword));
     if (geolocationData) {
       setAutocompleteOptions(geolocationData.features);
@@ -46,12 +47,7 @@ const AutoCompleteSearchLocation: FC<AutoCompleteSearchLocationPropsType> = prop
       onChange={onChange}
       renderInput={params => (
         <SearchWrapper>
-          <InputBase
-            {...params}
-            className="w-100 pl-2"
-            placeholder="Search location"
-            onChange={e => handleSearch(e.target.value)}
-          />
+          <InputBase {...params} className="w-100 pl-2" placeholder="Search location" onChange={handleSearch} />
           <IconButton aria-label="search">
             <SearchIcon />
           </IconButton>
