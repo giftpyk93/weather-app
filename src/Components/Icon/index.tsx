@@ -8,6 +8,8 @@ type IconWeatherPropsType = {
   size?: "small" | "big";
 };
 
+type IconWrapperPropsType = Pick<IconWeatherPropsType, "size">;
+
 const ICON_SIZE = {
   small: "48px",
   big: "60px",
@@ -15,7 +17,7 @@ const ICON_SIZE = {
 
 const SMALL = "small";
 
-const IconWrapper = styled.img<Pick<IconWeatherPropsType, "size">>`
+const IconWrapper = styled.img<IconWrapperPropsType>`
   width: ${({ size }) => ICON_SIZE[size || SMALL]};
   height: ${({ size }) => ICON_SIZE[size || SMALL]};
   text-align: center;
